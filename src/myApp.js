@@ -4,12 +4,11 @@ import './myList'
 class MyApp extends LitElement {
     static get properties() {
         return {
-            items: { type: Array }
+            list: { type: Array }
         };
     }
-    constructor() {
-        super()
-        this.items = [
+    _getList(){
+        return [
             {
                 id: 1,
                 name: 'Life is beautiful',
@@ -37,9 +36,24 @@ class MyApp extends LitElement {
             }
         ]
     }
+    _getEmptyList(){
+        return []
+    }
+    _onCreateList(){
+        this.list = this._getList()
+    }
+    _onEmptyList(){
+        this.list = this._getEmptyList()
+    }
+    constructor() {
+        super()
+        this.list = this._getList()
+    }
     render(){
         return html`
-           <my-list title="My favorite movies" .items=${this.items}></my-list> 
+        <button @click="${this._onEmptyList}">Vaciar lista</button>
+        <button @click="${this._onCreateList}">Crear lista</button>
+        <my-list title="My favorite movies" .items=${this.list}></my-list> 
         `
     }
 }

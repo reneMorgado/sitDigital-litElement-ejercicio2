@@ -4136,14 +4136,9 @@ LitElement.render = _shadyRender.render;
 },{"lit-html/lib/shady-render.js":"node_modules/lit-html/lib/shady-render.js","./lib/updating-element.js":"node_modules/lit-element/lib/updating-element.js","./lib/decorators.js":"node_modules/lit-element/lib/decorators.js","lit-html/lit-html.js":"node_modules/lit-html/lit-html.js","./lib/css-tag.js":"node_modules/lit-element/lib/css-tag.js"}],"src/myList.js":[function(require,module,exports) {
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.MyList = void 0;
-
 var _litElement = require("lit-element");
 
-var _templateObject, _templateObject2;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -4188,9 +4183,9 @@ var MyList = /*#__PURE__*/function (_LitElement) {
   _createClass(MyList, [{
     key: "render",
     value: function render() {
-      return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n            <h1>", "</h1>\n            <ul>\n                ", "\n            </ul>\n        "])), this.title, this.items.map(function (item) {
-        return (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<li>", "(", ")</li>"])), item.name, item.year);
-      }));
+      return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n            <h1>", "</h1>\n            ", "\n        "])), this.title, this.items.length > 0 ? (0, _litElement.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n            <ul>\n                ", "\n            </ul>\n            "])), this.items.map(function (item) {
+        return (0, _litElement.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["<li>", "(", ")</li>"])), item.name, item.year);
+      })) : (0, _litElement.html)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["<h1>No hay datos</h1>"]))));
     }
   }], [{
     key: "properties",
@@ -4209,7 +4204,6 @@ var MyList = /*#__PURE__*/function (_LitElement) {
   return MyList;
 }(_litElement.LitElement);
 
-exports.MyList = MyList;
 customElements.define('my-list', MyList);
 },{"lit-element":"node_modules/lit-element/lit-element.js"}],"src/myApp.js":[function(require,module,exports) {
 "use strict";
@@ -4255,40 +4249,60 @@ var MyApp = /*#__PURE__*/function (_LitElement) {
     _classCallCheck(this, MyApp);
 
     _this = _super.call(this);
-    _this.items = [{
-      id: 1,
-      name: 'Life is beautiful',
-      year: 1997
-    }, {
-      id: 2,
-      name: 'Avengers - End game.',
-      year: 2019
-    }, {
-      id: 3,
-      name: 'Interstellar',
-      year: 2014
-    }, {
-      id: 4,
-      name: 'Hush',
-      year: 2016
-    }, {
-      id: 5,
-      name: 'The purge',
-      year: 2013
-    }];
+    _this.list = _this._getList();
     return _this;
   }
 
   _createClass(MyApp, [{
+    key: "_getList",
+    value: function _getList() {
+      return [{
+        id: 1,
+        name: 'Life is beautiful',
+        year: 1997
+      }, {
+        id: 2,
+        name: 'Avengers - End game.',
+        year: 2019
+      }, {
+        id: 3,
+        name: 'Interstellar',
+        year: 2014
+      }, {
+        id: 4,
+        name: 'Hush',
+        year: 2016
+      }, {
+        id: 5,
+        name: 'The purge',
+        year: 2013
+      }];
+    }
+  }, {
+    key: "_getEmptyList",
+    value: function _getEmptyList() {
+      return [];
+    }
+  }, {
+    key: "_onCreateList",
+    value: function _onCreateList() {
+      this.list = this._getList();
+    }
+  }, {
+    key: "_onEmptyList",
+    value: function _onEmptyList() {
+      this.list = this._getEmptyList();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n           <my-list title=\"My favorite movies\" .items=", "></my-list> \n        "])), this.items);
+      return (0, _litElement.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        <button @click=\"", "\">Vaciar lista</button>\n        <button @click=\"", "\">Crear lista</button>\n        <my-list title=\"My favorite movies\" .items=", "></my-list> \n        "])), this._onEmptyList, this._onCreateList, this.list);
     }
   }], [{
     key: "properties",
     get: function get() {
       return {
-        items: {
+        list: {
           type: Array
         }
       };
@@ -4327,7 +4341,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51520" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63340" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

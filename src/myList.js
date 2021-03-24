@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element';
 
-export class MyList extends LitElement {
+class MyList extends LitElement {
     static get properties() {
         return {
             items: { type: Array },
@@ -12,12 +12,15 @@ export class MyList extends LitElement {
         this.title = ''
         this.items = []
     }
+    
     render() {
         return html`
             <h1>${this.title}</h1>
+            ${this.items.length > 0 ? html`
             <ul>
                 ${this.items.map(item=> html`<li>${item.name}(${item.year})</li>`)}
             </ul>
+            ` : html`<h1>No hay datos</h1>`}
         `;
     }
 }
